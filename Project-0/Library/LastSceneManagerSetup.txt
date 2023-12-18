@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/InkImplementation.unity
+- path: Assets/Scenes/BaseSaveSystem.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
