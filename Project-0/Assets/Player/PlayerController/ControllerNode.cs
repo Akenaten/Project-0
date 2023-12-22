@@ -33,7 +33,7 @@ public class ControllerNode : MonoBehaviour
     {
         actions.Enable();
         actions.Movement.Walk.performed += WalkHook;
-        actions.Movement.Sample.performed += JumpHook;
+        actions.Movement.Jump.performed += JumpHook;
     
     }
 

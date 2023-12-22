@@ -28,7 +28,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ""id"": ""6249edbf-cc01-4550-bf4f-f3d5c392b2e7"",
             ""actions"": [
                 {
-                    ""name"": ""Sample"",
+                    ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""efd36e7f-8077-46ad-9eef-3de23bf09bd9"",
                     ""expectedControlType"": ""Button"",
@@ -54,7 +54,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Sample"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76f6eaf1-db47-4521-add0-26780c4ad0ed"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -90,6 +101,39 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""5e0fdcf1-c293-4484-a7d0-612bd5e25b51"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walk"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""0442bf1c-b624-46fb-8b8f-472facfdb116"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""13aa75c5-8ce5-43cf-a936-dcc3690db103"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -98,7 +142,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
 }");
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
-        m_Movement_Sample = m_Movement.FindAction("Sample", throwIfNotFound: true);
+        m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
         m_Movement_Walk = m_Movement.FindAction("Walk", throwIfNotFound: true);
     }
 
@@ -161,13 +205,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     // Movement
     private readonly InputActionMap m_Movement;
     private List<IMovementActions> m_MovementActionsCallbackInterfaces = new List<IMovementActions>();
-    private readonly InputAction m_Movement_Sample;
+    private readonly InputAction m_Movement_Jump;
     private readonly InputAction m_Movement_Walk;
     public struct MovementActions
     {
         private @PlayerControls m_Wrapper;
         public MovementActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Sample => m_Wrapper.m_Movement_Sample;
+        public InputAction @Jump => m_Wrapper.m_Movement_Jump;
         public InputAction @Walk => m_Wrapper.m_Movement_Walk;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
@@ -178,9 +222,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_MovementActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_MovementActionsCallbackInterfaces.Add(instance);
-            @Sample.started += instance.OnSample;
-            @Sample.performed += instance.OnSample;
-            @Sample.canceled += instance.OnSample;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
             @Walk.started += instance.OnWalk;
             @Walk.performed += instance.OnWalk;
             @Walk.canceled += instance.OnWalk;
@@ -188,9 +232,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IMovementActions instance)
         {
-            @Sample.started -= instance.OnSample;
-            @Sample.performed -= instance.OnSample;
-            @Sample.canceled -= instance.OnSample;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
             @Walk.started -= instance.OnWalk;
             @Walk.performed -= instance.OnWalk;
             @Walk.canceled -= instance.OnWalk;
@@ -213,7 +257,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public MovementActions @Movement => new MovementActions(this);
     public interface IMovementActions
     {
-        void OnSample(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
         void OnWalk(InputAction.CallbackContext context);
     }
 }
