@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TabButton : MonoBehaviour, IPointerClickHandler//, IPointerExitHandler, IPointerEnterHandler
+public class MenuTabButton : MonoBehaviour, IPointerClickHandler//, IPointerExitHandler, IPointerEnterHandler
 {
     public TabGroup tabGroup;
     public Image background;

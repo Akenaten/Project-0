@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef7484f8d24e7a345b35336c9b015f63, type: 3}
+  m_Name: Splinter'eye
+  m_EditorClassIdentifier: 
+  itemId: 4
+  itemName: Splinter's eye
+  itemDescription: Somone name Sam is looking for his third eye, hopefully he never
+    finds who stall it
+  sprite: {fileID: 21300000, guid: e21783b9009bb3e40aac9f7487d624f7, type: 3}
+  itemTag: 2
+  itemEquipmentTag: 6
+  equipmentPrefab: {fileID: 0}

@@ -6,21 +6,21 @@ using UnityEngine.UI;
 
 public class TabGroup : MonoBehaviour
 {
-    public List<TabButton> tabButtons;
+    public List<MenuTabButton> tabButtons;
     private float height = 0;
     private float selectedHeight = 0;
     private float width = 0;
     private float selectedWidth = 0;
     public float sizeMultiplier = 1.5f;
     public float lerpDuration = 0.5f;
-    public TabButton selectedTab;
+    public MenuTabButton selectedTab;
     public List<GameObject> objectsToSwap;
 
-    public void Subscribe(TabButton button)
+    public void Subscribe(MenuTabButton button)
     {
         if (tabButtons == null)
         {
-            tabButtons = new List<TabButton>();
+            tabButtons = new List<MenuTabButton>();
         }
         tabButtons.Add(button);
         if (height == 0 || width == 0 || selectedHeight == 0 || selectedWidth == 0)
@@ -42,7 +42,7 @@ public class TabGroup : MonoBehaviour
     //     ResetTabs();
     // }
 
-    public void OnTabSelected(TabButton button)
+    public void OnTabSelected(MenuTabButton button)
     {
         selectedTab = button;
         ResetTabs();
@@ -63,14 +63,14 @@ public class TabGroup : MonoBehaviour
 
     public void ResetTabs()
     {
-        foreach(TabButton button in tabButtons)
+        foreach(MenuTabButton button in tabButtons)
         {
             if (selectedTab != null && button == selectedTab) { continue ;}
             StartCoroutine(UpdateHeightAndWidth(button, height, width));
         }
     }
 
-    IEnumerator UpdateHeightAndWidth(TabButton button, float targetHeight, float targetWidth)
+    IEnumerator UpdateHeightAndWidth(MenuTabButton button, float targetHeight, float targetWidth)
     {
         float elapsedTime = 0f;
         float startHeight = button.rt.rect.height;
