@@ -13,11 +13,11 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
 
-    private bool playerInRange;
+    // private bool playerInRange;
 
     private void Awake() 
     {
-        playerInRange = false;
+        // playerInRange = false;
         // visualCue.SetActive(false);
     }
 
@@ -44,7 +44,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            playerInRange = true;
+            // playerInRange = true;
         }
     }
 
@@ -52,7 +52,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            playerInRange = false;
+            // playerInRange = false;
         }
     }
 }
