@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
@@ -12,6 +13,8 @@ public class ControllerNode : MonoBehaviour
     PlayerControls actions;
 
     Rigidbody2D rb;
+
+    [SerializeField] GameObject menuPanel;
     [SerializeField] BoxCollider2D groundCheck;
     
     [SerializeField] float movementSpeed = 1f;
@@ -34,7 +37,7 @@ public class ControllerNode : MonoBehaviour
         actions.Enable();
         actions.Movement.Walk.performed += WalkHook;
         actions.Movement.Jump.performed += JumpHook;
-    
+        actions.Movement.OpenMap.performed += ctx => ShowMap();
     }
 
 
@@ -80,4 +83,12 @@ public class ControllerNode : MonoBehaviour
     public void outsideOrderGround(bool state){ //IS TRIGGERED BY THE GROUNC CHECKING OBJECT TO DETERMINE IF THE PLAYER CAN JUMP
         canJump = state;
     }
+
+    #region  Menu
+
+    void ShowMap()
+    {
+        menuPanel.gameObject.SetActive(menuPanel.activeSelf ? false : true);
+    }
+    #endregion
 }

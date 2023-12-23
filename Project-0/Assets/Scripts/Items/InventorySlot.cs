@@ -50,7 +50,10 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         myItem.activeSlot = this;
 
         item.Initialize(item.myItem, this);
-        itemStackNumbertext.text = item.amount.ToString();
+        if (item.myItem.stackable)
+        {
+            itemStackNumbertext.text = item.amount.ToString();
+        }
         myItem.transform.SetParent(transform);
         Inventory.Singleton.ResetSelectedItem();
         // myItem.canvasGroup.blocksRaycasts = true;
