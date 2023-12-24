@@ -42,9 +42,9 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _NoiseAmount: 0.061
     - _NoiseScale: 100
-    - _ScanningLines: 10
-    - _ScanningLinesAmount: 0.168
-    - _ScanningLinesSpeed: 0.74
+    - _ScanningLines: 4.54
+    - _ScanningLinesAmount: 0.05
+    - _ScanningLinesSpeed: 0.26
     m_Colors:
     - _NoiseSpeed: {r: 0, g: 0.002, b: 0, a: 0}
   m_BuildTextureStacks: []

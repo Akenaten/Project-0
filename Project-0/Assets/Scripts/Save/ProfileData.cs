@@ -7,15 +7,6 @@ public class ProfileData : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F5))
-        {
-            SaveProfile();
-        }
-        if (Input.GetKeyDown(KeyCode.F8))
-        {
-            LoadProfile();
-        }
-
         timer += Time.deltaTime;
     }
 

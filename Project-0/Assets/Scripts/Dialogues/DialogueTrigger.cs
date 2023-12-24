@@ -13,46 +13,42 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
 
-    // private bool playerInRange;
+    private bool playerInRange = false;
 
     private void Awake() 
     {
-        // playerInRange = false;
-        // visualCue.SetActive(false);
+        visualCue.SetActive(false);
     }
 
     private void Update() 
     {
-        // TODO : Uncomment to condition when the player is in range of the object, a visual cue will appear
-
-        // if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying) 
-        // {
-            // visualCue.SetActive(true);
-            // if (DialogueManager.GetInstance().GetInteractPressed()) 
-            if (Input.GetKeyDown(KeyCode.T) && !DialogueManager.GetInstance().dialogueIsPlaying) 
+        if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying) 
+        {
+            visualCue.SetActive(true);
+            if (DialogueManager.GetInstance().GetInteractPressed()) 
             {
                 DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
             }
-        // }
-        // else 
-        // {
-            // visualCue.SetActive(false);
-        // }
-    }
-
-    private void OnTriggerEnter(Collider collider) 
-    {
-        if (collider.gameObject.tag == "Player")
+        }
+        else 
         {
-            // playerInRange = true;
+            visualCue.SetActive(false);
         }
     }
 
-    private void OnTriggerExit(Collider collider) 
+    private void OnTriggerEnter2D(Collider2D collider) 
     {
         if (collider.gameObject.tag == "Player")
         {
-            // playerInRange = false;
+            playerInRange = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider) 
+    {
+        if (collider.gameObject.tag == "Player")
+        {
+            playerInRange = false;
         }
     }
 }
