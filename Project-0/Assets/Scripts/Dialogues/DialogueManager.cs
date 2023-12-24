@@ -44,9 +44,8 @@ public class DialogueManager : MonoBehaviour
     private InkExternalFunctions inkExternalFunctions;
     
 #region Dialogue
-//TODO : externalise all that in player controller 
-    private bool interactPressed;
-    private bool submitPressed;
+    public bool interactPressed;
+    public bool submitPressed;
 #endregion
 
     private void Awake() 
@@ -103,8 +102,6 @@ public class DialogueManager : MonoBehaviour
             ContinueStory();
         }
 
-        InteractButtonPressed();
-        SubmitPressed();
     }
 
     public void EnterDialogueMode(TextAsset inkJSON/*, Animator emoteAnimator*/) 
@@ -256,8 +253,7 @@ public class DialogueManager : MonoBehaviour
         if (canContinueToNextLine) 
         {
             currentStory.ChooseChoiceIndex(choiceIndex);
-            // NOTE: The below two lines were added to fix a bug after the Youtube video was made
-            RegisterSubmitPressed(); // this is specific to my InputManager script
+            RegisterSubmitPressed(); 
             ContinueStory();
         }
     }
@@ -322,7 +318,7 @@ public class DialogueManager : MonoBehaviour
 
     #region Dialogue
 //TODO : externalise all that in player controller 
-    public void InteractButtonPressed()
+    public void InteractPressed()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
