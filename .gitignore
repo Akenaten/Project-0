@@ -74,3 +74,5 @@ Project-0/Library
 Project-0/UserSettings
 Project-0/Logs
 Project-0/ProjectSettings/ShaderGraphSettings.asset
+*.csproj
+*.csproj

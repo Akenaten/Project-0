@@ -18,8 +18,11 @@ public class ControllerNode : MonoBehaviour
 
     [SerializeField] DialogueManager dialogueManager;
     [SerializeField] ProfileData profileData;
+    [SerializeField] MeleeBaseState meleeBaseState;
     [SerializeField] BoxCollider2D groundCheck;
+    public StateMachine meleeStateMachine;
     
+
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] public float playerDirection = 1f;
     [SerializeField] float jumpForce = 4f;
@@ -33,6 +36,11 @@ public class ControllerNode : MonoBehaviour
         actions = new PlayerControls();
         rb = transform.GetComponent<Rigidbody2D>();
 
+    }
+
+    void Start()
+    {
+        // meleeStateMachine = GetComponent<StateMachine>();
     }
 
 
@@ -51,7 +59,7 @@ public class ControllerNode : MonoBehaviour
         actions.PlayerControl.Interact.canceled += ctx => InteractCanceled();
         actions.PlayerControl.Submit.performed += ctx => SubmitPerformed();
         actions.PlayerControl.Submit.canceled += ctx => SubmitCanceled();
-
+        actions.PlayerControl.Attack.performed += ctx => AttackPerformed();
     }
 
     #region  player
@@ -100,6 +108,21 @@ public class ControllerNode : MonoBehaviour
         canJump = state;
     }
 
+        #region Attack
+
+    void AttackPerformed()
+    {
+        if (meleeStateMachine.currentState.GetType() == typeof(IdleCombatState))
+        {
+            meleeStateMachine.SetNextState(new GroundEntryState());
+        }
+        if (meleeStateMachine.currentState.GetType().IsSubclassOf(typeof(MeleeBaseState)))
+        {
+            meleeStateMachine.currentState.AttackPressedTimer = 2;
+        }
+    }
+        #endregion
+
     #endregion
 
     #region  Menu
@@ -110,7 +133,7 @@ public class ControllerNode : MonoBehaviour
     #endregion
 
 
-    #region  Menu
+    #region  Dialog
     void InteractPerformed()
     {
         dialogueManager.interactPressed = true ;
