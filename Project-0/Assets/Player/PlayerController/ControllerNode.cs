@@ -20,6 +20,7 @@ public class ControllerNode : MonoBehaviour
     [SerializeField] ProfileData profileData;
     [SerializeField] MeleeBaseState meleeBaseState;
     [SerializeField] BoxCollider2D groundCheck;
+    [SerializeField] SpriteRenderer playerSprite;
     public StateMachine meleeStateMachine;
     
 
@@ -76,11 +77,11 @@ public class ControllerNode : MonoBehaviour
         switch(speedInput){
             case 1:
             playerSpeed = movementSpeed;
-            playerDirection = 1f;
+            gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
             break;
             case -1:
             playerSpeed = -movementSpeed;
-            playerDirection = -1f;
+            gameObject.transform.localScale = new Vector3(-1f, 1f, 1f);
             break;
             default:
             playerSpeed = 0;
