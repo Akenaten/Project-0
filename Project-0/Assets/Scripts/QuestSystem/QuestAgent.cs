@@ -7,6 +7,14 @@ public class QuestAgent : MonoBehaviour
     [SerializeField] QuestManager questManager;
     [SerializeField] int questID;
 
+    private void getAssociatedQuestID(){
+        questID = questManager.FindMyQuest(this.gameObject.name);
+        if(questID != 0){
+            Debug.Log($"Quest has been found!");
+        } else {
+            Debug.Log($"No quest found for this agent.");
+        }
+    }
     private void startQuest(){
         questManager.invokeQuestStart(questID);
     }
@@ -16,9 +24,8 @@ public class QuestAgent : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.S)){
-            Debug.Log("Agent is starting quest...");
-            startQuest();
+        if(Input.GetKeyDown(KeyCode.F)){
+            getAssociatedQuestID();
         }
     }
 

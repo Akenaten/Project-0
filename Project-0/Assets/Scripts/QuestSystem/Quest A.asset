@@ -16,5 +16,5 @@ MonoBehaviour:
   QuestName: To New Friendships
   Description: Find a way to reach the inn!
   questType: 1
-  questAgentName: Agent
+  questAgentName: PersonalAgent
   questGoalName: QuestGoal

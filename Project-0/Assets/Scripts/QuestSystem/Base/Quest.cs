@@ -7,8 +7,11 @@ using UnityEngine;
 public class Quest : BaseQuest
 {
     private QuestManager MANAGER;
+    string AgentName = "none";
+    string GoalName = "none";
 
-    public Quest(QuestScriptableObject QSO, QuestManager qman){
+    public Quest(QuestScriptableObject QSO, QuestManager qman)
+    {
         this.MANAGER = qman;
         this.ID = QSO.QuestID;
         this.Name = QSO.QuestName;
@@ -18,25 +21,29 @@ public class Quest : BaseQuest
         this.MANAGER.QuestStartEvents += onQuestStart;
         this.MANAGER.QuestEvents += onQuestUpdate;
         this.MANAGER.QuestEndEvents += onQuestCompletion;
-        
-        switch(QSO.questType){
+
+        switch (QSO.questType)
+        {
             case QuestScriptableObject.QuestType.Talk:
-            this.QuestType = "Talk";
-            break;
+                this.QuestType = "Talk";
+                break;
             case QuestScriptableObject.QuestType.Travel:
-            this.QuestType = "Travel";
-            setupTravel(QSO.questGoalName, QSO.questAgentName);
-            break;
+                this.QuestType = "Travel";
+                AgentName = QSO.questAgentName;
+                GoalName = QSO.questGoalName;
+                // setupTravel(QSO.questGoalName, QSO.questAgentName);
+                break;
             default:
-            this.QuestType = "Undefined";
-            break;
+                this.QuestType = "Undefined";
+                break;
         }
 
     }
 
 
 
-    public void setupTravel(string goalName, string questAgentName){
+    public void setupTravel(string goalName, string questAgentName)
+    {
         GameObject goal = GameObject.Find(goalName);
         GameObject agent = GameObject.Find(questAgentName);
         IQuestObject goalScript = goal.GetComponent<IQuestObject>();
@@ -45,33 +52,54 @@ public class Quest : BaseQuest
     }
 
 
-    public override void onQuestStart(int quest_id){
-        if(this.ID == quest_id && this.Status != "Active"){
+    public override void onQuestStart(int quest_id)
+    {
+
+        if (this.ID == quest_id && this.Status != "Active" && this.Status != "Completed")
+        {
+            Debug.Log($"Function invoked through Quest Manager with a given ID of: {quest_id}");
             this.Status = "Active";
             MANAGER.updateDetails();
         }
     }
 
-    public override void onQuestUpdate(int quest_id){
-        if(quest_id == this.ID && this.Status != "Pending"){
+    public override void onQuestUpdate(int quest_id)
+    {
+        if (quest_id == this.ID && this.Status != "Pending" && this.Status != "Completed")
+        {
             Debug.Log($"Quest of name: {this.Name} has been progressed!");
             MANAGER.updateDetails();
         }
 
     }
 
-    public override void onQuestCompletion(int quest_id){
-        this.Desc = "Quest Completed";
-        this.Status = "Completed";
-        MANAGER.updateDetails();
+    public override void onQuestCompletion(int quest_id)
+    {
+        if (quest_id == this.ID && this.Status != "Completed")
+        {
+            this.Desc = "Quest Completed";
+            this.Status = "Completed";
+            MANAGER.updateDetails();
+        }
+
+    }
+
+    //PROVIDE AGENT NAME AND QUEST ID
+    public int getQuestID(){
+        return this.ID;
+    }
+
+    public string getAgentName(){
+        return this.AgentName;
     }
 
 
 
 
-//PASS REQUIRED INFORMATION TO THE UI DEBUGGER
-    public Dictionary<string,string> getDets(){
-        Dictionary<string,string> book = new Dictionary<string,string>();
+    //PASS REQUIRED INFORMATION TO THE UI DEBUGGER
+    public Dictionary<string, string> getDets()
+    {
+        Dictionary<string, string> book = new Dictionary<string, string>();
         book["name"] = this.Name;
         book["desc"] = this.Desc;
         book["state"] = this.Status;

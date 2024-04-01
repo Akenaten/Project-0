@@ -13,6 +13,9 @@ public class QuestManager : MonoBehaviour
     public QuestUIDebugger Debugger;
     public int iota = 0;
 
+    // SetQuestID is used to manually select the ID of the desired quest and test it's behavior upon using any of the debug function keys (S,U,E)
+    public int SetQuestID = 0;
+
     public Action<int> QuestStartEvents;
     public Action<int> QuestEvents;
     public Action<int> QuestEndEvents;
@@ -20,6 +23,7 @@ public class QuestManager : MonoBehaviour
 
     void Start()
     {
+        //CREATE QUEST OBJECTS AND STORE THEM IN A LIST FROM THEIR RESPECTIVE SCRIPTABLE OBJECT QUESTS.
         foreach (var scriptableQuest in SOQ)
         {
            Quest quest = new Quest(scriptableQuest, this); 
@@ -34,6 +38,30 @@ public class QuestManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.C)){
             CycleQuest();
         }
+
+        if(Input.GetKeyDown(KeyCode.S)){
+            invokeQuestStart(SetQuestID);
+        }
+
+        if(Input.GetKeyDown(KeyCode.U)){
+            invokeEvents(SetQuestID);
+        }
+
+        if(Input.GetKeyDown(KeyCode.E)){
+            invokeQuestComplete(SetQuestID);
+        }
+    }
+
+
+
+    public int FindMyQuest(string AgentName){
+        foreach(Quest quest in Quests){
+            if(AgentName == quest.getAgentName()){
+                return quest.getQuestID();
+            }
+
+        }
+        return 0;
     }
 
 
@@ -58,6 +86,10 @@ public class QuestManager : MonoBehaviour
     }
     public void invokeEvents(int number){
         QuestEvents?.Invoke(number);
+    }
+
+    public void invokeQuestComplete(int QUEST_ID){
+        QuestEndEvents?.Invoke(QUEST_ID);
     }
 
     

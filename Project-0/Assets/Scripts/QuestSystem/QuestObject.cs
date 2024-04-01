@@ -14,11 +14,11 @@ public class QuestObject : MonoBehaviour, IQuestObject
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E)){
-            Debug.Log("Quest object has notified questManager of event.");
-            questManager.invokeEvents(questID);
+        // if(Input.GetKeyDown(KeyCode.E)){
+        //     Debug.Log("Quest object has notified questManager of event.");
+        //     questManager.invokeEvents(questID);
             
-        }
+        // }
     }
 
     public void onQuestAssigned(int qID){
