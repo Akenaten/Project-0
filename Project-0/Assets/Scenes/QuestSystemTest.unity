@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592ff29d7043431479689d1c94de67fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionBox: {fileID: 0}
   questManager: {fileID: 2060989315}
 --- !u!65 &275447354
 BoxCollider:
@@ -990,8 +991,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1316, y: 897}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 1316, y: 892.08057}
+  m_SizeDelta: {x: 200, y: 51.963}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1754352123
 MonoBehaviour:
@@ -1013,40 +1014,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(Quest Manager script)
-
-    Testing Keys:
-
-    C => Cycle through available
-    quests
-
-    S => Invoke the QuestStart delegate
-
-    U => Invoke the QuestUpdate
-    delegate
-
-    E => Invoke QuestEnd delegate
-
-    F => All QuestAgents ask the
-    Manager to fetch the Quest IDs related to them.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    (choose Quest
-    ID by setting the SetQuestID var under the QuestManager object.
-
-'
+  m_text: "(Quest Manager script)\nTesting Keys:\nC => Cycle through available quests\n\n(S,U,E
+    require Quest ID setting)\nS => Invoke the QuestStart delegate\nU => Invoke the
+    QuestUpdate delegate\nE => Invoke QuestEnd delegate\n\nF => All QuestAgents ask
+    the Manager to fetch the Quest IDs related to them.\n\n(Requires SetAgentName
+    setting)\nI => Begin a quest associated with an agent. \nC => Complete quests
+    that have a QuestGoal object attached to them.\n\n\n\n\n\nUse Tilde key to hide
+    this text.\n\n\n\n\n\n\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1539,7 +1513,9 @@ MonoBehaviour:
   Quests: []
   Debugger: {fileID: 2068867053}
   iota: 0
+  HelpText: {fileID: 1754352121}
   SetQuestID: 0
+  SetAgentName: 
 --- !u!1 &2068867051
 GameObject:
   m_ObjectHideFlags: 0

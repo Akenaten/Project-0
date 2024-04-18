@@ -87,6 +87,8 @@ public class ControllerNode : MonoBehaviour
             
             rb.velocity = new Vector3(playerSpeed * Time.deltaTime, rb.velocity.y, 0);
         }
+
+
     }
 
     void Jump(){
@@ -127,5 +129,12 @@ public class ControllerNode : MonoBehaviour
     {
         dialogueManager.submitPressed = false ;
     }
+    #endregion
+
+    #region Interacting Objects
+
+
+
+
     #endregion
 }

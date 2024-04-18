@@ -5,6 +5,7 @@ using UnityEngine;
 public class QuestObject : MonoBehaviour, IQuestObject
 {
     private int questID;
+    public BoxCollider2D interactionBox; //Manually attach a box collider component that will serve as the quest trigger for progression/completion.
     [SerializeField] QuestManager questManager;
     void Start()
     {
@@ -14,11 +15,9 @@ public class QuestObject : MonoBehaviour, IQuestObject
     // Update is called once per frame
     void Update()
     {
-        // if(Input.GetKeyDown(KeyCode.E)){
-        //     Debug.Log("Quest object has notified questManager of event.");
-        //     questManager.invokeEvents(questID);
-            
-        // }
+        if(Input.GetKeyDown(KeyCode.C)){
+            onQuestCompletion();
+        }
     }
 
     public void onQuestAssigned(int qID){
@@ -26,7 +25,18 @@ public class QuestObject : MonoBehaviour, IQuestObject
         questID = qID;
     }
 
-    public void onQuestCompletion(){
 
+
+    public void onQuestCompletion(){
+        questManager.invokeQuestComplete(questManager.FindMyQuest(this.gameObject.name));
+
+    }
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Player")){
+            onQuestCompletion();
+        }
     }
 }
