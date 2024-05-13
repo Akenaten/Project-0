@@ -20,7 +20,7 @@ public class QuestAgent : MonoBehaviour
         if(questID != 0){
             Debug.Log($"Quest has been found!");
         } else {
-            Debug.Log($"No quest found for this agent.");
+            Debug.Log($"No quest found for this agent => {this.gameObject.name}.");
         }
     }
 

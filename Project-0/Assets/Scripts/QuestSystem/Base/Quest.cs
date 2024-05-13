@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [System.Serializable]
@@ -9,7 +11,13 @@ public class Quest : BaseQuest
     private QuestManager MANAGER;
     string AgentName = "none";
     string GoalName = "none";
+    
+    private List<QuestStage> stages;
+    
+    public int quest_stage_tracker = 0;
     private Dictionary<string, string> Rewards = new Dictionary<string, string>();
+
+    private List<String> Agents = new List<String>();
 
     public Quest(QuestScriptableObject QSO, QuestManager qman)
     {
@@ -20,6 +28,9 @@ public class Quest : BaseQuest
         this.Status = "Pending";
         this.Rewards["XP"] = QSO.XPReward.ToString();
         this.Rewards["Gold"] = QSO.GoldReward.ToString();
+        this.stages = QSO.stages;
+        setupStageIndexes();
+        setupQuestAgents(QSO.otherAgents);
 
         this.MANAGER.QuestStartEvents += onQuestStart;
         this.MANAGER.QuestEvents += onQuestUpdate;
@@ -33,7 +44,7 @@ public class Quest : BaseQuest
                 break;
             case QuestScriptableObject.QuestType.Travel:
                 this.QuestType = "Travel";
-                AgentName = QSO.questAgentName;
+                // AgentName = QSO.questAgentName;
                 GoalName = QSO.questGoalName;
                 // setupTravel(QSO.questGoalName, QSO.questAgentName);
                 break;
@@ -42,6 +53,25 @@ public class Quest : BaseQuest
                 break;
         }
 
+    }
+
+    private void setupStageIndexes(){
+
+        for(int i = 1; i < stages.Count; i++){
+            stages[i].stage_number = i;
+        }
+
+
+    }
+
+    private void setupQuestAgents(List<string> AgentNames){
+        foreach(QuestStage stage in stages){
+            Agents.Add(stage.goal_name);
+        }
+
+        foreach(string entry in AgentNames){
+            Agents.Add(entry);
+        }
     }
 
 
@@ -58,6 +88,7 @@ public class Quest : BaseQuest
 
     public override void onQuestStart(int quest_id)
     {
+        Debug.Log($"This quest has {stages.Count} stages");
 
         if (this.ID == quest_id && this.Status != "Active" && this.Status != "Completed")
         {
@@ -67,12 +98,24 @@ public class Quest : BaseQuest
         }
     }
 
-    public override void onQuestUpdate(int quest_id)
+    public override void onQuestUpdate(int quest_id, string trigger_name = null)
     {
-        if (quest_id == this.ID && this.Status != "Pending" && this.Status != "Completed")
-        {
-            Debug.Log($"Quest of name: {this.Name} has been progressed!");
-            MANAGER.updateDetails();
+        if(this.Status != "Pending" && this.Status != "Completed"){
+
+            if (quest_id == this.ID)
+            {   
+                if(quest_stage_tracker >= 0 && trigger_name == stages[quest_stage_tracker].goal_name){
+
+                    Debug.Log($"Quest of name: {this.Name} has been progressed through interaction with {trigger_name}");
+                    quest_stage_tracker = quest_stage_tracker == stages.Count-1 ? -1 : quest_stage_tracker + 1;
+                    if(quest_stage_tracker < 0){
+                        Debug.Log("Quest has been completed");
+                    }
+                    MANAGER.updateDetails();
+                    
+                }
+
+            }
         }
 
     }
@@ -108,6 +151,14 @@ public class Quest : BaseQuest
 
     public string getQuestGoal(){
         return this.GoalName;
+    }
+
+    public bool isAgentInQuest(string AgentName){
+        if(Agents.Contains(AgentName)){
+            return true;
+        }
+
+        return false;
     }
 
 

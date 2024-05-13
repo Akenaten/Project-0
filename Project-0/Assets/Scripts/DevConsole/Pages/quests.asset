@@ -15,5 +15,5 @@ MonoBehaviour:
   text: "quests            Used to view and debug quests.\n\nUsage:\n\nquests -sa         
     Shows a brief overview of all quests currently held by the quest manager.\n\nquests
     questID   Shows an overview of the requested quest.\n\nquests questID -x Perform
-    actions upon quest. Valid flags:\n-s => Start quest\n-c => Complete quest\n-r
-    => Reset quest (Pending status)\n\n\t"
+    actions upon quest. Valid flags:\n\t\t       -s => Start quest\n\t\t       -c
+    => Complete quest\n\t\t       -r => Reset quest (Pending status)\n\n\t"

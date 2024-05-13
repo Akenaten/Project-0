@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,20 +14,20 @@ public class QuestScriptableObject : ScriptableObject
         Travel
     };
 
- 
-
-
 
     public int QuestID;
     public string QuestName;
     public string Description;
     public int XPReward;
     public int GoldReward;
+    public List<QuestStage> stages = new List<QuestStage>();
     
 
     public QuestType questType;
     [Header("Travel Type Parameters")]
-    public string questAgentName;
+    public List<string> otherAgents;
     public string questGoalName;
 
 }
+
+

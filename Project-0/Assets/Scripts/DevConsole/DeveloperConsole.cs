@@ -117,7 +117,7 @@ public class DeveloperConsole : MonoBehaviour
             toggleConsole();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKey(KeyCode.LeftControl) & Input.GetKeyDown(KeyCode.Q))
         {
             toggleTextWindows();
 
@@ -154,6 +154,10 @@ public class DeveloperConsole : MonoBehaviour
         InputFieldObject.SetActive(currentState);
         textBox.SetActive(currentState);
         quest_box.SetActive(false);
+        
+        if(currentState){
+            inputField.ActivateInputField();
+        }
 
 
     }
@@ -299,6 +303,7 @@ public class DeveloperConsole : MonoBehaviour
         }
 
         inputField.text = "";
+        inputField.ActivateInputField();
     }
 
 

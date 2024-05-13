@@ -25,7 +25,7 @@ public class QuestManager : MonoBehaviour
     
 
     public Action<int> QuestStartEvents;
-    public Action<int> QuestEvents;
+    public Action<int, string> QuestEvents;
     public Action<int> QuestEndEvents;
     public Action<int, string> QuestStateSet;
 
@@ -104,7 +104,8 @@ public class QuestManager : MonoBehaviour
     {
         foreach (Quest quest in Quests)
         {
-            if (AgentName == quest.getAgentName() || AgentName == quest.getQuestGoal())
+            // AgentName == quest.getAgentName()
+            if (quest.isAgentInQuest(AgentName ) || AgentName == quest.getQuestGoal())
             {
                 return quest.getQuestID();
             }
@@ -157,9 +158,10 @@ public class QuestManager : MonoBehaviour
 
         }
     }
-    public void invokeEvents(int number)
+    public void invokeEvents(int number, string trigger_name = null)
     {
-        QuestEvents?.Invoke(number);
+        // Debug.Log($"Quest Progression has been called by {trigger_name}");
+        QuestEvents?.Invoke(number, trigger_name);
     }
 
     public void invokeQuestComplete(int QUEST_ID)

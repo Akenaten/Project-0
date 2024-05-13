@@ -697,12 +697,12 @@ MonoBehaviour:
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_CustomCaretColor: 0
+  m_CaretColor: {r: 1, g: 1, b: 1, a: 1}
+  m_CustomCaretColor: 1
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
   m_Text: 
-  m_CaretBlinkRate: 1
-  m_CaretWidth: 1
+  m_CaretBlinkRate: 1.5
+  m_CaretWidth: 5
   m_ReadOnly: 0
   m_RichText: 1
   m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -771,6 +771,8 @@ MonoBehaviour:
   quest_manager: {fileID: 0}
   quest_box: {fileID: 0}
   quest_box_fields: {fileID: 0}
+  history: []
+  history_cursor: 0
 --- !u!1 &497736573
 GameObject:
   m_ObjectHideFlags: 0
@@ -1441,6 +1443,8 @@ MonoBehaviour:
   quest_manager: {fileID: 0}
   quest_box: {fileID: 1527895505}
   quest_box_fields: {fileID: 2000569506}
+  history: []
+  history_cursor: 0
 --- !u!1 &1170633493
 GameObject:
   m_ObjectHideFlags: 0

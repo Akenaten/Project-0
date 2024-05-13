@@ -11,7 +11,7 @@ public abstract class BaseQuest {
 
     public abstract void onQuestStart(int value);
 
-    public abstract void onQuestUpdate(int value);
+    public abstract void onQuestUpdate(int value, string trigger);
 
     
 

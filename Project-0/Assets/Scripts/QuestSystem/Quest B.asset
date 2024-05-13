@@ -10,16 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9215372982061bb40928674832858ba5, type: 3}
-  m_Name: Quest A
+  m_Name: Quest B
   m_EditorClassIdentifier: 
   QuestID: 1
-  QuestName: To New Friendships
-  Description: Find a way to reach the inn!
+  QuestName: Traveller
+  Description: '-'
   XPReward: 0
   GoldReward: 0
   stages:
-  - stage_desc: Find a way to reach the inn!
-    goal_name: QuestGoal
-  questType: 1
-  questAgentName: PersonalAgent
-  questGoalName: QuestGoal
+  - stage_desc: Reach the first inn
+    goal_name: Inn
+    stage_number: 0
+  - stage_desc: Reach the second inn
+    goal_name: SecondInn
+    stage_number: 1
+  questType: 0
+  otherAgents:
+  - Milio
+  questGoalName: 
